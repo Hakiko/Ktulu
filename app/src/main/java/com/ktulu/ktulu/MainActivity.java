@@ -38,13 +38,8 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
         }
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            Log.d("Ktulu", "LEL");
-            ipNumber = "";
-            WifiManager mainWifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-            wifiInfo = mainWifi.getConnectionInfo();
-            byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
+        private String ipAddressFromInt(int ip) {
+            byte[] bytes = BigInteger.valueOf(ip).toByteArray();
 
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -57,12 +52,22 @@ public class MainActivity extends AppCompatActivity {
 
             for(byte b : byteList) {
                 int x = (b + 256) % 256;
-                stringBuilder.append(String.valueOf(x));
-                stringBuilder.append(".");
+                stringBuilder
+                        .append(String.valueOf(x))
+                        .append(".");
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            return stringBuilder.toString();
+        }
 
-            ipNumber = stringBuilder.toString();
+        @Override
+        protected Void doInBackground(Void... params) {
+            Log.d("Ktulu", "LEL");
+            ipNumber = "";
+            WifiManager mainWifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+            wifiInfo = mainWifi.getConnectionInfo();
+
+            ipNumber = ipAddressFromInt(wifiInfo.getIpAddress());
 
             Log.d("Ktulu", ipNumber);
 
