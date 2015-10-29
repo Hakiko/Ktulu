@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,10 +32,26 @@ public class MainActivity extends AppCompatActivity {
         private WifiInfo wifiInfo;
         private String ssid;
         private String gatewayIp;
+        private WifiManager wifiManager;
+        private boolean tetheringOn;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+        }
+
+        private boolean isTetheringOn() {
+            try {
+                Method[] wmMethods = wifiManager.getClass().getDeclaredMethods();
+                for (Method method : wmMethods)
+                    if (method.getName().equals("isWifiApEnabled")) {
+                        boolean isOn = (Boolean) method.invoke(wifiManager);
+                        return isOn;
+                    }
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
         }
 
         private String ipAddressFromInt(int ip) {
@@ -43,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
             StringBuilder stringBuilder = new StringBuilder();
 
             List<Byte> byteList = new ArrayList<Byte>();
-            for(byte b : bytes) {
+            for (byte b : bytes) {
                 byteList.add(b);
             }
 
             Collections.reverse(byteList);
 
-            for(byte b : byteList) {
+            for (byte b : byteList) {
                 int x = (b + 256) % 256;
                 stringBuilder
                         .append(String.valueOf(x))
@@ -63,12 +80,13 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             Log.d("Ktulu", "LEL");
             myIpNumber = "";
-            WifiManager mainWifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-            wifiInfo = mainWifi.getConnectionInfo();
+            wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+            wifiInfo = wifiManager.getConnectionInfo();
 
             myIpNumber = ipAddressFromInt(wifiInfo.getIpAddress());
             ssid = wifiInfo.getSSID();
-            gatewayIp = ipAddressFromInt(mainWifi.getDhcpInfo().gateway);
+            gatewayIp = ipAddressFromInt(wifiManager.getDhcpInfo().gateway);
+            tetheringOn = isTetheringOn();
 
             Log.d("Ktulu", myIpNumber);
 
@@ -78,7 +96,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            ip.setText("IP Number: " + myIpNumber + "\nGateway IP: " + gatewayIp + "\nSSID: " + ssid);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder
+                    .append("IP Number: ")
+                    .append(myIpNumber)
+                    .append("\nGateway IP: ")
+                    .append(gatewayIp)
+                    .append("\nSSID: ")
+                    .append(ssid)
+                    .append("\nTethering: ")
+                    .append(tetheringOn ? "On" : "Off");
+
+            ip.setText(stringBuilder.toString());
         }
     }
 
@@ -89,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ip = (TextView)findViewById(R.id.ip);
+        ip = (TextView) findViewById(R.id.ip);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
