@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -130,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         new CheckMyIp().execute();
+
+        Button refreshButton = (Button) findViewById(R.id.refreshButton);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CheckMyIp().execute();
+            }
+        });
     }
 
     @Override
