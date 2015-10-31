@@ -99,6 +99,15 @@ public class MainActivity extends AppCompatActivity {
                 new CheckMyIp().execute();
             }
         });
+
+        Button showCardButton = (Button) findViewById(R.id.showCardButton);
+        showCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ShowCardActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void startServerService() {

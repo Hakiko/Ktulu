@@ -13,12 +13,29 @@
         android:layout_height="wrap_content"
         android:id="@+id/ip" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Refresh"
-        android:id="@+id/refreshButton"
-        android:layout_marginTop="138dp"
-        android:layout_below="@+id/ip"
-        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refresh"
+            android:id="@+id/refreshButton"
+            android:layout_marginTop="138dp"
+            android:layout_below="@+id/ip"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Card"
+            android:id="@+id/showCardButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_below="@+id/refreshButton" />
+    </LinearLayout>
 </RelativeLayout>

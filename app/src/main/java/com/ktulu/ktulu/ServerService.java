@@ -68,6 +68,7 @@ public class ServerService extends IntentService {
                         Log.d(AppInfo.LOG_TAG, "READ id = " + String.valueOf(id) + ": " + read);
                     } else {
                         Log.d(AppInfo.LOG_TAG, "Disconnected id = " + String.valueOf(id));
+                        makeToast("LEL");
                         break;
                     }
                 } catch (IOException e) {
