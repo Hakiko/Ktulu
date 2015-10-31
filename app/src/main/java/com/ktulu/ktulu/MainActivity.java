@@ -100,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button findServerButton = (Button) findViewById(R.id.findServerButton);
+        findServerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FindServerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void startServerService() {

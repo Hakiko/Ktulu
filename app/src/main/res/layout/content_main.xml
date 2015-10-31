@@ -30,6 +30,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Find Server"
+            android:id="@+id/findServerButton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Show Card"
             android:id="@+id/showCardButton"
             android:layout_alignParentRight="true"

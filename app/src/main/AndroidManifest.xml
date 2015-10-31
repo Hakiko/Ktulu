@@ -29,6 +29,7 @@
             android:exported="false" />
 
         <activity android:name=".ShowCardActivity" />
+        <activity android:name=".FindServerActivity" />
     </application>
 
 </manifest>
