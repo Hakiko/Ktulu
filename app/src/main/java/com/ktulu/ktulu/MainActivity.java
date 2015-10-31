@@ -1,6 +1,7 @@
 package com.ktulu.ktulu;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -41,55 +42,19 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
         }
 
-        private boolean isTetheringOn() {
-            try {
-                Method[] wmMethods = wifiManager.getClass().getDeclaredMethods();
-                for (Method method : wmMethods)
-                    if (method.getName().equals("isWifiApEnabled")) {
-                        boolean isOn = (Boolean) method.invoke(wifiManager);
-                        return isOn;
-                    }
-                return false;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-
-        private String ipAddressFromInt(int ip) {
-            byte[] bytes = BigInteger.valueOf(ip).toByteArray();
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            List<Byte> byteList = new ArrayList<Byte>();
-            for (byte b : bytes) {
-                byteList.add(b);
-            }
-
-            Collections.reverse(byteList);
-
-            for (byte b : byteList) {
-                int x = (b + 256) % 256;
-                stringBuilder
-                        .append(String.valueOf(x))
-                        .append(".");
-            }
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            return stringBuilder.toString();
-        }
-
         @Override
         protected Void doInBackground(Void... params) {
-            Log.d("Ktulu", "LEL");
+            //Log.d("Ktulu", "LEL");
             myIpNumber = "";
             wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
             wifiInfo = wifiManager.getConnectionInfo();
 
-            myIpNumber = ipAddressFromInt(wifiInfo.getIpAddress());
+            myIpNumber = NetworkUtilities.ipAddressFromInt(wifiInfo.getIpAddress());
             ssid = wifiInfo.getSSID();
-            gatewayIp = ipAddressFromInt(wifiManager.getDhcpInfo().gateway);
-            tetheringOn = isTetheringOn();
+            gatewayIp = NetworkUtilities.ipAddressFromInt(wifiManager.getDhcpInfo().gateway);
+            tetheringOn = NetworkUtilities.isTetheringOn(wifiManager);
 
-            Log.d("Ktulu", myIpNumber);
+            Log.d(AppInfo.LOG_TAG, myIpNumber);
 
             return null;
         }
@@ -112,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void makeUi() {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,9 +92,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        new CheckMyIp().execute();
-
         Button refreshButton = (Button) findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +99,19 @@ public class MainActivity extends AppCompatActivity {
                 new CheckMyIp().execute();
             }
         });
+    }
+
+    private void startServerService() {
+        Intent intent = new Intent(MainActivity.this, ServerService.class);
+        startService(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        makeUi();
+        new CheckMyIp().execute();
+        startServerService();
     }
 
     @Override
