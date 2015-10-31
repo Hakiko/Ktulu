@@ -29,8 +29,6 @@
             android:exported="false" />
 
         <activity android:name=".ShowCardActivity" />
-
-        <activity android:name=".ShowCardActivity2" />
     </application>
 
 </manifest>
