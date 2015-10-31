@@ -37,5 +37,16 @@
             android:layout_marginRight="55dp"
             android:layout_marginEnd="55dp"
             android:layout_below="@+id/refreshButton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Card2"
+            android:id="@+id/showCardButton2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_below="@+id/refreshButton" />
     </LinearLayout>
 </RelativeLayout>

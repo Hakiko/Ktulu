@@ -108,6 +108,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button showCardButton2 = (Button) findViewById(R.id.showCardButton2);
+        showCardButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ShowCardActivity2.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void startServerService() {
