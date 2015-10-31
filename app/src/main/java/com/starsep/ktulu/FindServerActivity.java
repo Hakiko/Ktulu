@@ -1,12 +1,10 @@
-package com.ktulu.ktulu;
+package com.starsep.ktulu;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 

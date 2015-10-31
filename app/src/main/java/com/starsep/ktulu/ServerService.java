@@ -1,21 +1,13 @@
-package com.ktulu.ktulu;
+package com.starsep.ktulu;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiManager;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.DatagramPacket;
-import java.net.MulticastSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 
