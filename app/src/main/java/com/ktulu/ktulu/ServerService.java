@@ -24,24 +24,12 @@ public class ServerService extends IntentService {
         super("ServerService");
     }
 
-    private static final String ipNumber = "240.0.0.3";
     private static final int PORT = 1337;
-
-    private WifiManager wifiManager;
-
-    private void switchOnMulticastPermission() {
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager != null) {
-            WifiManager.MulticastLock lock = wifiManager.createMulticastLock(AppInfo.LOG_TAG);
-            lock.acquire();
-        }
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d("Ktulu", "ServerService started");
-        switchOnMulticastPermission();
     }
 
     @Override
