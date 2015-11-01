@@ -10,25 +10,10 @@ import java.util.List;
 
 public class NetworkUtilities {
     public static String ipAddressFromInt(int ip) {
-        byte[] bytes = BigInteger.valueOf(ip).toByteArray();
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        List<Byte> byteList = new ArrayList<>();
-        for (byte b : bytes) {
-            byteList.add(b);
-        }
-
-        Collections.reverse(byteList);
-
-        for (byte b : byteList) {
-            int x = (b + 256) % 256;
-            stringBuilder
-                    .append(String.valueOf(x))
-                    .append(".");
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        return stringBuilder.toString();
+        return  ((ip & 0xFF) + "." +
+                ((ip >>>= 8) & 0xFF) + "." +
+                ((ip >>>= 8) & 0xFF) + "." +
+                ((ip >>>= 8) & 0xFF));
     }
 
     public static boolean isTetheringOn(WifiManager wifiManager) {
