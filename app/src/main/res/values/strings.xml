@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Ktulu</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_change_name">Change Name</string>
     <string name="title_activity_show_card">Card</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="defaultName">Default Name</string>
+    <string name="changeNameTitle">Change your name</string>
 </resources>

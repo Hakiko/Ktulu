@@ -9,14 +9,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="Hello World!" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ip" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView android:text="Hello World!" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ip" />
 
         <Button
             android:layout_width="wrap_content"
@@ -44,5 +44,24 @@
             android:layout_marginEnd="55dp"
             android:layout_below="@+id/refreshButton" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="defaultName"
+            android:id="@+id/name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/version"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom|center_horizontal"
+            android:text="asdsadasd" />
+
     </LinearLayout>
+
 </RelativeLayout>
