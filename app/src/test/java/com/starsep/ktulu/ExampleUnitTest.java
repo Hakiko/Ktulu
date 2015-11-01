@@ -1,4 +1,4 @@
-package com.ktulu.ktulu;
+package com.starsep.ktulu;
 
 import org.junit.Test;
 
