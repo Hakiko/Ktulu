@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         private WifiInfo wifiInfo;
         private String ssid;
         private String gatewayIp;
+        private String serverIp;
+        private String netmask;
         private WifiManager wifiManager;
         private boolean tetheringOn;
 
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             ssid = wifiInfo.getSSID();
             gatewayIp = NetworkUtilities.ipAddressFromInt(wifiManager.getDhcpInfo().gateway);
             tetheringOn = NetworkUtilities.isTetheringOn(wifiManager);
+            serverIp = NetworkUtilities.ipAddressFromInt(wifiManager.getDhcpInfo().serverAddress);
+            netmask = NetworkUtilities.ipAddressFromInt(wifiManager.getDhcpInfo().netmask);
 
             Log.d(AppInfo.LOG_TAG, myIpNumber);
 
@@ -60,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
                     .append(myIpNumber)
                     .append("\nGateway IP: ")
                     .append(gatewayIp)
+                    .append("\nServer IP: ")
+                    .append(serverIp)
+                    .append("\nNetmask: ")
+                    .append(netmask)
                     .append("\nSSID: ")
                     .append(ssid)
                     .append("\nTethering: ")
