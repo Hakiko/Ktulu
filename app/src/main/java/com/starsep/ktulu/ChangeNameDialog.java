@@ -30,7 +30,12 @@ public class ChangeNameDialog extends DialogFragment {
                         ((MainActivity)getActivity()).updateNameUi(editText.getText().toString());
                     }
                 })
-                .setNegativeButton(R.string.cancel, null);
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
         // Create the AlertDialog object and return it
         return builder.create();
     }

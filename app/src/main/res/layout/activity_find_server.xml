@@ -19,7 +19,7 @@
         android:id="@+id/progress"
         android:layout_gravity="center_vertical|center_horizontal"
         android:progress="0"
-        android:max="100"
+        android:max="256"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:longClickable="false" />
 

@@ -45,6 +45,8 @@ public class ServerService extends IntentService {
             this.id = id;
             try {
                 this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+                socket.getOutputStream().write("I am server\n".getBytes());
+                socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

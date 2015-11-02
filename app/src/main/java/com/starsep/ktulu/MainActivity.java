@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView ipTextView;
     private TextView nameTextView;
     private SharedPreferences settings;
+    private int netmaskNumber;
 
     private class CheckMyIp extends AsyncTask<Void, Void, Void> {
         private String myIpNumber;
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             gatewayIp = NetworkUtilities.ipAddressFromInt(wifiManager.getDhcpInfo().gateway);
             tetheringOn = NetworkUtilities.isTetheringOn(wifiManager);
             serverIp = NetworkUtilities.ipAddressFromInt(wifiManager.getDhcpInfo().serverAddress);
-            netmask = NetworkUtilities.ipAddressFromInt(wifiManager.getDhcpInfo().netmask);
+            netmaskNumber = wifiManager.getDhcpInfo().netmask;
+            netmask = NetworkUtilities.ipAddressFromInt(netmaskNumber);
 
             Log.d(AppInfo.LOG_TAG, myIpNumber);
 
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FindServerActivity.class);
+                intent.putExtra("Netmask", netmaskNumber);
                 startActivity(intent);
             }
         });
